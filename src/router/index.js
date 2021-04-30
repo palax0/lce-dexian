@@ -3,15 +3,67 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// const adminListName = {
+//   'Statistics': ['OrderAnalysis'],
+//   'Management': ['UserManage', 'FrontManage', 'ActivityManage', 'OrderManage'],
+//   'AfterSale': ['Feedback'],
+//   'Setting': ['AccountPower']
+// }
+
+// function makeRoutes (defaultPath, list) {
+//   const tempRoutes = []
+//   let cntx = 0
+//   for (let key in list) {
+//     for (let y = 0; y < list[key].length; ++y) {
+//       tempRoutes.push({
+//         name: list[key][y],
+//         path: cntx + '/' + y,
+//         component: () => import('../' + defaultPath + '/' + key + '/' + list[key][y])
+//       })
+//     }
+//     ++cntx
+//   }
+//   return tempRoutes
+// }
+// console.log(makeRoutes('components/Admin', adminListName));
+
+// 登录页面
 const Login = () => import('../components/Login')
-const AdminHome = () => import('../components/admin/AdminHome')
-const UserHome = () => import('../components/user/UserHome')
+// 管理员页面
+const AdminHome = () => import('../components/Admin/AdminHome')
+  // 统计
+const OrderAnalysis = () => import('../components/Admin/Statistics/OrderAnalysis')
+  // 管理
+const UserManage = () => import('../components/Admin/Management/UserManage')
+const FrontManage = () => import('../components/Admin/Management/FrontManage')
+const ActivityManage = () => import('../components/Admin/Management/ActivityManage')
+const OrderManage = () => import('../components/Admin/Management/OrderManage')
+  // 售后
+const Suggestion = () => import('../components/Admin/AfterSale/Suggestion')
+  // 设置
+const AccountPower = () => import('../components/Admin/Setting/AccountPower')
+// 用户页面
+const UserHome = () => import('../components/User/UserHome')
 
 const routes = [
   { path: '', redirect: '/login' },
   { path: '/login', component: Login },
-  { name: 'AdminHomeRoute', path: '/admin/home/:userId', component: AdminHome, props: true },
-  { name: 'UserHomeRoute', path: '/user/home/:userId', component: UserHome, props: true }
+  {
+    // 如果这里设置name,子路由设置重定向,子路由将不会渲染
+    path: '/admin/home', 
+    component: AdminHome, 
+    children: [
+      { name: 'AdminHomeRoute', path: '', redirect: '0/0' },
+      { name: 'OrderAnalysis', path: '0/0', component: OrderAnalysis },
+      { name: 'UserManage', path: '1/0', component: UserManage },
+      { name: 'FrontManage', path: '1/1', component: FrontManage },
+      { name: 'ActivityManage', path: '1/2', component: ActivityManage },
+      { name: 'OrderManage', path: '1/3', component: OrderManage },
+      { name: 'Suggestion', path: '2/0', component: Suggestion },
+      { name: 'AccountPower', path: '3/0', component: AccountPower }
+    ]
+  },
+  { name: 'UserHomeRoute', path: '/user/home', component: UserHome, props: true }
 ]
 
 const router = new VueRouter({
@@ -33,9 +85,9 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
     if (tokenStr) {
       if (window.sessionStorage.getItem('userType') === '0')
-        return next({name: 'AdminHomeRoute', params: {userId: window.sessionStorage.getItem('userId')}})
-      else
         return next({name: 'UserHomeRoute', params: {userId: window.sessionStorage.getItem('userId')}})
+      else
+        return next({name: 'AdminHomeRoute', params: {userId: window.sessionStorage.getItem('userId')}})
     }
     else return next()
   }

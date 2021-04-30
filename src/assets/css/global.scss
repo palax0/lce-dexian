@@ -1,3 +1,5 @@
+$dexian-color: rgb(255, 142, 0);
+
 * {
   margin: 0;
   padding: 0;
@@ -8,3 +10,40 @@ body,
 #app {
   height: 100%;
 }
+
+li {
+  list-style: none;
+}
+
+input {
+  outline: none;
+  border: 1px solid #dcdfe6;
+  border-radius: 3px;
+  transition: all 0.4s;
+  &:hover {
+    border: 1px solid #c0c4cc;
+  }
+  &:focus {
+    border: 1px solid $dexian-color;
+  }
+}
+
+select {
+  outline: none;
+  border: 1px solid #dcdfe6;
+  border-radius: 3px;
+  transition: all 0.4s;
+  &:hover {
+    border: 1px solid #c0c4cc;
+  }
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+// 设置element的主题颜色
+$--color-primary: $dexian-color;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "~element-ui/packages/theme-chalk/src/index";

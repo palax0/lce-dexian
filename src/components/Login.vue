@@ -82,9 +82,9 @@ export default {
           // this.showMessage('登陆成功');
           console.log(requestObj);
           if (requestObj.role === 0) // 商家
-            this.$router.push('/user/home/' + result.data.id);
+            this.$router.push('/user/home');
           else // 管理员
-            this.$router.push('/admin/home/' + result.data.id);
+            this.$router.push('/admin/home');
         }
         else {
           // this.$message.error(result.msg);       
