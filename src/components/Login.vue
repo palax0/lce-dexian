@@ -104,12 +104,14 @@ export default {
 
 <style lang="scss" scoped>
   $dexian-color: rgb(255, 142, 0);
-  $easy-shadow: 0px 0px 15px 1px #ccc;
 
   // 背景
   .login-container {
     height: 100%;
     background-color: rgb(255, 234, 205);
+    // background-image: url("../../public/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
   }
   // 登录盒
   .login-box {
@@ -121,7 +123,7 @@ export default {
     width: 1280px;
     height: 620px;
 
-    box-shadow: $easy-shadow;
+    box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.04);
   }
   // 盒左边（图片部分）
   .login-box-left {
@@ -129,6 +131,8 @@ export default {
     width: 710px;
     height: 100%;
     background-color: pink;
+    background-image: url("../../public/background.png");
+    background-position: -77px -141px;
   }
   // 盒右边（登录部分）
   .login-box-right {
