@@ -1,7 +1,7 @@
 <template>
   <div>
     <home-header/>
-    <side-bar></side-bar>
+    <side-bar :list-data="listData" :list-icon-data="listIconData"></side-bar>
   </div>
 </template>
 
@@ -11,10 +11,25 @@ const SideBar = () => import('../SideBar')
 
 export default {
   name: 'UserHome',
-  props: ['userId'],
   components: {
     HomeHeader,
     SideBar
+  },
+  data() {
+    return {
+      listData: {
+        '统计': ['数据分析'],
+        '管理': ['财务管理', '活动管理'],
+        '咨询': ['咨询评价'],
+        '设置': ['账户管理']
+      },
+      listIconData: [
+        'el-icon-pie-chart',
+        'el-icon-folder',
+        'el-icon-chat-dot-square',
+        'el-icon-setting'
+      ]
+    }
   }
 }
 </script>
